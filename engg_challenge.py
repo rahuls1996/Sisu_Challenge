@@ -7,7 +7,6 @@ import math
 from itertools import islice
 from memprof import memprof
 
-@memprof
 def caller(smaller_file, memory, size, file_2):
     counter = 0
     number_of_lines = calculate_chunk(size,memory)
@@ -43,20 +42,18 @@ def match_checker(hash_set, file_in_disk):
     return counter
 
 
-
 def calculate_intersection(input1, input2, available_memory):
     size_of_first = os.stat(input1).st_size
     size_of_second = os.stat(input2).st_size
     if size_of_first > size_of_second:
-        
         number_of_matches = caller(input2,available_memory,size_of_second,input1)
     else:
         number_of_matches = caller(input1,available_memory,size_of_first,input2)
     return number_of_matches
 
 
-
 number = calculate_intersection(sys.argv[1],sys.argv[2], sys.argv[3])
+
 print(number)
 
 

@@ -1,4 +1,5 @@
 # Sisu_Challenge
+
 Engineering problem for Sisu Data
 
 Assumptions - 
@@ -78,6 +79,8 @@ In this case, we take the smaller of the two files. If the computed chunk size i
 Now, we could account for the case when both files can be loaded into memory, and their own sets. This would be slightly faster, but this is also an O(n) operation, where n is the size of the bigger file. 
 
 The main bottleneck with this comes up whe the files are huge and the memory allowed is small. For example, when both the files are >100MB, and the memory size is 1MB. We then read in very small chunks (k) from one file, n/k times. 
+
+Another factor is the number of I/O calls we make. In accessing the files line by line, the number of I/O calls is really high. In order to reduce this, we could first store the files into temp files, and then read from those line by line, since a seek() in a temp file is comparatively faster. 
 
 
 
