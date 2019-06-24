@@ -52,11 +52,17 @@ Computing chunk sizes -
     For now, in order to take into account the size overhead of the set and the other variables / functions in my program, I compute the chunk size to be as follows - 
     
     Begin
+    
     memory = int(memory)*(10**6) - memory in Bytes (10**6 as we are using SI prefixes)
+    
     chunk = float(size) - size is the size of the smaller file
-    while chunk > (memory/4):                                             
+    
+    while chunk > (memory/4):                
+    
         chunk = chunk/2
+        
     number_of_lines = math.ceil(chunk/18) - maximum of 18 bytes per line in file (assumption 1)
+    
     return number_of_lines
     
 chunk > memory/4 was chosen to make sure that we can account for the overhead of having the list containing the next n lines, the hash set and my functions/variables in memory. 
