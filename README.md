@@ -63,6 +63,21 @@ chunk > memory/4 was chosen to make sure that we can account for the overhead of
 
 Optimizing for different scenarios  - 
 
+In all cases, the smaller file is the one loaded into the hash set (in chunks) , and then bigger file is kept in memory. This accounts for cases when one file is larger than another, when one file is bigger than the memory available and the other is not and when the files are of different sizes. 
+
+Case: Both files smaller than memory available:
+
+In this case, we take the smaller of the two files. If the computed chunk size is greater than the file size, we can  load the whole file into the hash set. 
+
+Now, we could account for the case when both files can be loaded into memory, and their own sets. This would be slightly faster, but this is also an O(n) operation, where n is the size of the bigger file. 
+
+The main bottleneck with this comes up whe the files are huge and the memory allowed is small. For example, when both the files are >100MB, and the memory size is 1MB. We then read in very small chunks (k) from one file, n/k times. 
+
+
+
+                
+    
+
 
 
 
