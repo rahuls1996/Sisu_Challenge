@@ -12,7 +12,7 @@ Base logic, without any constraints -
 
 If memory was not an issue, a efficient way to solve this problem is to load both files into hash sets, and then take the intersection of these two hash sets. 
 
-Time complexity - O(n), where n is the size of the larger set (number of integers in the larger file)
+Time complexity - O(n), where n is the size of the larger set (number of integers in the larger file);
 Space Complexity - O(n) where n is the number of integers in the file with more numbers. 
 
 Constraints:
@@ -47,7 +47,7 @@ A function number_of_matches is then called which checks the intersection of thi
 
 Complexity analysis - 
     Space complexity - O(k) where k is the number of lines read at a time
-    Time complexity - O(n1 + n2/k)
+    Time complexity - O(n1 + (n2*n1)/k)  Best case  k = n1 
 
 Computing chunk sizes - 
     For now, in order to take into account the size overhead of the set and the other variables / functions in my program, I compute the chunk size to be as follows - 
@@ -70,13 +70,20 @@ chunk > memory/4 was chosen to make sure that we can account for the overhead of
 
 Optimizing for different scenarios  - 
 
-In all cases, the smaller file is the one loaded into the hash set (in chunks) , and then bigger file is kept in memory. This accounts for cases when one file is larger than another, when one file is bigger than the memory available and the other is not and when the files are of different sizes. 
+CASE 1: Both files have sizes less than the budget - 
 
-Case: Both files smaller than memory available:
-
-In this case, we take the smaller of the two files. If the computed chunk size is greater than the file size, we can  load the whole file into the hash set. 
+In this case, we take the smaller of the two files. If the computed chunk size is greater than the file size, we can load the whole file into the hash set. 
 
 Now, we could account for the case when both files can be loaded into memory, and their own sets. This would be slightly faster, but this is also an O(n) operation, where n is the size of the bigger file. 
+
+
+CASE 2: One larger and one smaller - 
+In this case as well, we bring the smaller file into memory chunk by chunk, and keep the larger file on the disk and read it line by line. The complexity remains unchanged. 
+
+CASE 3: Both larger - 
+
+In this case we take the smaller of the two files and compute chunks. Time and space complexity remain unchanged. 
+
 
 The main bottleneck with this comes up whe the files are huge and the memory allowed is small. For example, when both the files are >100MB, and the memory size is 1MB. We then read in very small chunks (k) from one file, n/k times. 
 
