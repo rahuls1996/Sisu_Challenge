@@ -7,12 +7,11 @@ import math
 from itertools import islice
 from memprof import memprof
 
-
+#function for calculating chunks and then matching values in the second file
 def chunk_and_match(smaller_file, memory, size, file_2):
     counter = 0
     number_of_lines = calculate_chunk(size,memory)
     file = open(smaller_file)
-    #deciding chunk size as a function of available memory
     while True:
         hash_set = set()
         next_n_lines = list(islice(file, number_of_lines))
@@ -23,7 +22,7 @@ def chunk_and_match(smaller_file, memory, size, file_2):
         counter += match_checker(hash_set, file_2)
     return counter
 
-
+#deciding chunk size as a function of available memory
 def calculate_chunk(size,memory):
     memory = int(memory)*(10**6)
     chunk = float(size)
@@ -33,7 +32,7 @@ def calculate_chunk(size,memory):
     return number_of_lines
 
 
-
+#matching hash set with file in memory
 def match_checker(hash_set, file_in_disk):
     counter = 0
     for line in open(file_in_disk):
@@ -41,7 +40,7 @@ def match_checker(hash_set, file_in_disk):
             counter+=1
     return counter
 
-
+#deciding which file stays in memory based on size
 def calculate_intersection(input1, input2, available_memory):
     size_of_first = os.stat(input1).st_size
     size_of_second = os.stat(input2).st_size
