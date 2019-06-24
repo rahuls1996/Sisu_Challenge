@@ -83,6 +83,18 @@ The main bottleneck with this comes up whe the files are huge and the memory all
 Another factor is the number of I/O calls we make. In accessing the files line by line, the number of I/O calls is really high. In order to reduce this, we could first store the files into temp files, and then read from those line by line, since a seek() in a temp file is comparatively faster. 
 
 
+***********************TEST CASES***********************
+The following scenarios were tested and the code was profiled- 
+
+1. Two files smaller than memory budget
+2. One file larger, one file smaller
+3. Two files larger
+4. The same file path twice
+5. One very big file, and one very small. 
+
+Test Case Outputs.pdf contains the code outputs, as well as the memory profiler output. 
+
+
 
                 
     
