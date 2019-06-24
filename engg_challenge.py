@@ -6,7 +6,6 @@ import tempfile
 import math
 from itertools import islice
 from memprof import memprof
-import tempfile
 
 def caller(smaller_file, memory, size, file_2):
     counter = 0
@@ -14,7 +13,6 @@ def caller(smaller_file, memory, size, file_2):
     file = open(smaller_file)
     #deciding chunk size as a function of available memory
     while True:
-        print('Came')
         hash_set = set()
         next_n_lines = list(islice(file, number_of_lines))
         if len(next_n_lines) == 0:
