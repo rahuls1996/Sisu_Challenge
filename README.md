@@ -66,7 +66,7 @@ Computing chunk sizes -
     
     return number_of_lines
     
-chunk > memory/4 was chosen to make sure that we can account for the overhead of having the list containing the next n lines, the hash set and my functions/variables in memory. 
+chunk > memory/4 was chosen to make sure that we can account for the overhead of having the list containing the next n lines, the hash set and my functions/variables in memory. In the future, this value could be more dynamic. 
 
 Optimizing for different scenarios  - 
 
@@ -84,6 +84,9 @@ CASE 3: Both larger -
 
 In this case we take the smaller of the two files and compute chunks. Time and space complexity remain unchanged. 
 
+CASE 4: One file is empty - 
+
+In this case, we read the smaller file (empty file) and the while loop will quit before accessing the file in memory (As the hash set will be empty), returning 0. 
 
 The main bottleneck with this comes up whe the files are huge and the memory allowed is small. For example, when both the files are >100MB, and the memory size is 1MB. We then read in very small chunks (k) from one file, n/k times. 
 
